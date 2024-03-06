@@ -1,0 +1,7 @@
+name: bad-piggies-plugin
+version: '${version}'
+main: net.slqmy.bad_piggies_plugin.BadPiggiesPlugin
+api-version: '1.20'
+prefix: Bad Piggies
+authors: [Slqmy]
+description: A plugin that implements some of the features from Rovio's "Bad Piggies" mobile game.
