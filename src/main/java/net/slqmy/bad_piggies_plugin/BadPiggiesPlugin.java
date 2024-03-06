@@ -1,5 +1,7 @@
 package net.slqmy.bad_piggies_plugin;
 
+import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
+import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -15,7 +17,13 @@ import java.util.Arrays;
 
 public final class BadPiggiesPlugin extends JavaPlugin {
 
+    private InstantTntManager instantTntManager;
+
     private NamespacedKey instantTntKey;
+
+    public InstantTntManager getInstantTntManager() {
+        return instantTntManager;
+    }
 
     public NamespacedKey getInstantTntKey() {
         return instantTntKey;
@@ -29,6 +37,8 @@ public final class BadPiggiesPlugin extends JavaPlugin {
 
         config.options().copyDefaults();
         saveDefaultConfig();
+
+        saveResource("data/instant-tnt-blocks.json", false);
 
         boolean isInstantTntEnabled = config.getBoolean("features.instant-tnt.enabled");
 
@@ -60,6 +70,10 @@ public final class BadPiggiesPlugin extends JavaPlugin {
 
                 Bukkit.addRecipe(instantTntRecipe);
             }
+
+            Bukkit.getPluginManager().registerEvents(new InstantTntPlaceListener(this), this);
+
+            instantTntManager = new InstantTntManager(this);
         }
     }
 }
