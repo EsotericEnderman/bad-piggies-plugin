@@ -2,12 +2,13 @@ package net.slqmy.bad_piggies_plugin.listener;
 
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 public class InstantTntPlaceListener implements Listener {
@@ -20,18 +21,20 @@ public class InstantTntPlaceListener implements Listener {
 
     @EventHandler
     public void onTntPlace(@NotNull BlockPlaceEvent event) {
-        Block block = event.getBlock();
+        ItemStack tntItem = event.getItemInHand();
 
-        BlockData blockData = block.getBlockData();
+        ItemMeta meta = tntItem.getItemMeta();
 
-        Material material = blockData.getMaterial();
+        PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
 
-        if (material != Material.TNT) {
+        Boolean isInstantTnt = dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN);
+
+        if (Boolean.FALSE.equals(isInstantTnt)) {
             return;
         }
 
         InstantTntManager instantTntManager = plugin.getInstantTntManager();
 
-        instantTntManager.addInstantTnt(block);
+        instantTntManager.addInstantTnt(event.getBlock());
     }
 }
