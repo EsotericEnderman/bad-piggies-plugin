@@ -1,4 +1,4 @@
-name: bad-piggies-plugin
+name: BadPiggiesPlugin
 version: '${version}'
 main: net.slqmy.bad_piggies_plugin.BadPiggiesPlugin
 api-version: '1.20'
