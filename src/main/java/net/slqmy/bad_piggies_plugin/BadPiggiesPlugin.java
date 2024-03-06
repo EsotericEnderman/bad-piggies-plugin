@@ -1,6 +1,7 @@
 package net.slqmy.bad_piggies_plugin;
 
 import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
+import net.slqmy.bad_piggies_plugin.listener.InstantTntRemoveListener;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
@@ -71,7 +73,10 @@ public final class BadPiggiesPlugin extends JavaPlugin {
                 Bukkit.addRecipe(instantTntRecipe);
             }
 
-            Bukkit.getPluginManager().registerEvents(new InstantTntPlaceListener(this), this);
+            PluginManager pluginManager = Bukkit.getPluginManager();
+
+            pluginManager.registerEvents(new InstantTntPlaceListener(this), this);
+            pluginManager.registerEvents(new InstantTntRemoveListener(this), this);
 
             instantTntManager = new InstantTntManager(this);
         }
