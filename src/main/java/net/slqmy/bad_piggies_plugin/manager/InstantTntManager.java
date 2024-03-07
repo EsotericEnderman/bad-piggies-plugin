@@ -1,7 +1,12 @@
 package net.slqmy.bad_piggies_plugin.manager;
 
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
+import net.slqmy.bad_piggies_plugin.util.BlockUtil;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -21,7 +26,7 @@ public class InstantTntManager {
     public InstantTntManager(BadPiggiesPlugin plugin) {
         this.plugin = plugin;
 
-
+        loadInstantTntData();
     }
 
     public void addInstantTnt(Vector blockCoordinates) {
@@ -54,5 +59,37 @@ public class InstantTntManager {
         PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
 
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
+    }
+
+    public void detonateInstantTnt(@NotNull Block instantTnt) {
+        instantTnt.setType(Material.AIR);
+
+        World world = instantTnt.getWorld();
+
+        YamlConfiguration configuration = (YamlConfiguration) plugin.getConfig();
+
+        ConfigurationSection explosionSettings = configuration.getConfigurationSection("features.instant-tnt.explosion");
+        assert explosionSettings != null;
+
+        double instantTntExplosionPower = explosionSettings.getDouble("power");
+        boolean instantTntBreaksBlocks = explosionSettings.getBoolean("breaks-blocks");
+        boolean instantTntSetsFire = explosionSettings.getBoolean("sets-fire");
+
+        world.createExplosion(
+                BlockUtil.getBlockCenterLocation(instantTnt),
+                (float) instantTntExplosionPower,
+                instantTntSetsFire,
+                instantTntBreaksBlocks
+        );
+
+        removeInstantTnt(instantTnt);
+    }
+
+    public void loadInstantTntData() {
+
+    }
+
+    public void saveInstantTntData() {
+
     }
 }
