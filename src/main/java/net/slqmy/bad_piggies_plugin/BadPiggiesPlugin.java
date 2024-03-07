@@ -1,5 +1,6 @@
 package net.slqmy.bad_piggies_plugin;
 
+import net.slqmy.bad_piggies_plugin.listener.InstantTntCollideListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntRemoveListener;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
@@ -77,8 +78,18 @@ public final class BadPiggiesPlugin extends JavaPlugin {
 
             pluginManager.registerEvents(new InstantTntPlaceListener(this), this);
             pluginManager.registerEvents(new InstantTntRemoveListener(this), this);
+            pluginManager.registerEvents(new InstantTntCollideListener(this), this);
 
             instantTntManager = new InstantTntManager(this);
         }
+    }
+
+    @Override
+    public void onDisable() {
+        if (instantTntManager == null) {
+            return;
+        }
+
+        instantTntManager.saveInstantTntData();
     }
 }
