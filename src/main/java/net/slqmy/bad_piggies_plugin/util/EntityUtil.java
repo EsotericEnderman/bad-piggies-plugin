@@ -14,7 +14,7 @@ public class EntityUtil {
     public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity) {
         BoundingBox box = entity.getBoundingBox();
 
-        box.expand(0.1F);
+        box.expand(0.01F);
 
         double minX = box.getMinX();
         double minY = box.getMinY();
