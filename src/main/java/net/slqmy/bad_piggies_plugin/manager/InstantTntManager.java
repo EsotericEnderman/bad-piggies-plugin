@@ -7,6 +7,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -15,7 +17,9 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InstantTntManager {
 
@@ -23,10 +27,23 @@ public class InstantTntManager {
 
     private final List<Vector> instantTntBlocks = new ArrayList<>();
 
+    private final Map<Player, Vector> playerVelocityMap = new HashMap<>();
+
     public InstantTntManager(BadPiggiesPlugin plugin) {
         this.plugin = plugin;
 
         loadInstantTntData();
+    }
+
+    public Vector getPlayerVelocity(Player player) {
+        return playerVelocityMap.get(player);
+    }
+
+    public void calculatePlayerVelocity(@NotNull PlayerMoveEvent event) {
+        playerVelocityMap.put(
+                event.getPlayer(),
+                event.getTo().toVector().subtract(event.getFrom().toVector())
+        );
     }
 
     public void addInstantTnt(Vector blockCoordinates) {
