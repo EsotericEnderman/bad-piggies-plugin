@@ -90,6 +90,7 @@ public class InstantTntManager {
         double angle = entityVelocity.angle(directionToBlock);
 
         return angle > Math.PI / 4;
+        return angle < Math.PI / 4;
     }
 
     public void detonateInstantTnt(@NotNull Block instantTnt) {
