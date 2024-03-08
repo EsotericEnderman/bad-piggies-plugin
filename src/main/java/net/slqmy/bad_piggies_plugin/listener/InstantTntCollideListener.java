@@ -77,7 +77,7 @@ public class InstantTntCollideListener implements Listener {
         }
 
         for (Block touchedBlock : touchedBlocks) {
-            if (instantTntManager.isInstantTnt(touchedBlock) && instantTntManager.shouldInstantTntExplode(touchedBlock, entity)) {
+            if (instantTntManager.isInstantTnt(touchedBlock) && instantTntManager.shouldInstantTntDetonate(touchedBlock, entity)) {
                 instantTntManager.detonateInstantTnt(touchedBlock);
             }
         }

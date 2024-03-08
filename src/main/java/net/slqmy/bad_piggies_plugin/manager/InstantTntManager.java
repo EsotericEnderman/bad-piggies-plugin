@@ -2,11 +2,13 @@ package net.slqmy.bad_piggies_plugin.manager;
 
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.util.BlockUtil;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -78,16 +80,16 @@ public class InstantTntManager {
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
     }
 
-    public boolean shouldInstantTntDetonate (Block instantTnt, Entity cause) {
-    Vector entityVelocity = cause.getVelocity();
+    public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause) {
+        Vector entityVelocity = cause.getVelocity();
 
-    Location blockCenterLocation = BlockUtil.getCenterBlockLocation(instantTnt);
+        Location blockCenterLocation = BlockUtil.getBlockCenterLocation(instantTnt);
 
-    Vector directionToBlock = blockCenterLocation.toVector().subtract(cause.getLocation().toVector());
+        Vector directionToBlock = blockCenterLocation.toVector().subtract(cause.getLocation().toVector());
 
-    double angle = entityVelocity.angle(directionToBlock);
+        double angle = entityVelocity.angle(directionToBlock);
 
-    return angle > Math.PI / 4;
+        return angle > Math.PI / 4;
     }
 
     public void detonateInstantTnt(@NotNull Block instantTnt) {
