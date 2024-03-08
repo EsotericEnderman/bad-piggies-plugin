@@ -78,6 +78,10 @@ public class InstantTntManager {
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
     }
 
+    public boolean shouldInstantTntDetonate (Entity cause, Block instantTnt) {
+    Vector entityVelocity = cause.getVelocity();
+    }
+
     public void detonateInstantTnt(@NotNull Block instantTnt) {
         instantTnt.setType(Material.AIR);
 
