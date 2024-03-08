@@ -27,8 +27,6 @@ public class InstantTntCollideListener implements Listener {
 
     @EventHandler
     public void onInstantTntCollide(@NotNull PlayerMoveEvent event) {
-        plugin.getInstantTntManager().calculatePlayerVelocity(event);
-
         onInstantTntCollide(
                 new EntityMoveEvent(
                         event.getPlayer(),
@@ -36,6 +34,8 @@ public class InstantTntCollideListener implements Listener {
                         event.getTo()
                 )
         );
+
+        plugin.getInstantTntManager().calculatePlayerVelocity(event);
     }
 
     @EventHandler
