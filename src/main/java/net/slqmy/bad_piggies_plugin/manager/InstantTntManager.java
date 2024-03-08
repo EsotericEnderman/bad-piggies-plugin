@@ -78,7 +78,7 @@ public class InstantTntManager {
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
     }
 
-    public boolean shouldInstantTntDetonate (Entity cause, Block instantTnt) {
+    public boolean shouldInstantTntDetonate (Block instantTnt, Entity cause) {
     Vector entityVelocity = cause.getVelocity();
 
     Location blockCenterLocation = BlockUtil.getCenterBlockLocation(instantTnt);
