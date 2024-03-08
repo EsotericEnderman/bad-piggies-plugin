@@ -51,7 +51,11 @@ public class InstantTntCollideListener implements Listener {
         InstantTntManager instantTntManager = plugin.getInstantTntManager();
 
         if (entity instanceof Player player) {
-            velocity = instantTntManager.getPlayerVelocity(player);
+            Vector playerVelocity = instantTntManager.getPlayerVelocity(player);
+
+            if (playerVelocity != null) {
+                velocity = playerVelocity;
+            }
 
             Bukkit.getLogger().info("velocity = " + velocity);
         }
