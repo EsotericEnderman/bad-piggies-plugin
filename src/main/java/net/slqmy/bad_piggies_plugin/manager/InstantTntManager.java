@@ -80,6 +80,14 @@ public class InstantTntManager {
 
     public boolean shouldInstantTntDetonate (Entity cause, Block instantTnt) {
     Vector entityVelocity = cause.getVelocity();
+
+    Location blockCenterLocation = BlockUtil.getCenterBlockLocation(instantTnt);
+
+    Vector directionToBlock = blockCenterLocation.toVector().subtract(cause.getLocation().toVector());
+
+    double angle = entityVelocity.angle(directionToBlock);
+
+    return angle > Math.PI / 4;
     }
 
     public void detonateInstantTnt(@NotNull Block instantTnt) {
@@ -96,8 +104,7 @@ public class InstantTntManager {
         boolean instantTntBreaksBlocks = explosionSettings.getBoolean("breaks-blocks");
         boolean instantTntSetsFire = explosionSettings.getBoolean("sets-fire");
 
-        world.createExplosion(
-                BlockUtil.getBlockCenterLocation(instantTnt),
+        world.createExplosion(BlockUtil.getBlockCenterLocation(instantTnt),
                 (float) instantTntExplosionPower,
                 instantTntSetsFire,
                 instantTntBreaksBlocks
