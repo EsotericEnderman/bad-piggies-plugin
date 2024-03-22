@@ -81,16 +81,39 @@ public class InstantTntManager {
     }
 
     public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause) {
-        Vector entityVelocity = cause.getVelocity();
+        double entityX = cause.getX();
+        double entityY = cause.getY();
+        double entityZ = cause.getZ();
 
         Location blockCenterLocation = BlockUtil.getBlockCenterLocation(instantTnt);
 
-        Vector directionToBlock = blockCenterLocation.toVector().subtract(cause.getLocation().toVector());
+        double tntX = blockCenterLocation.getX();
+        double tntY = blockCenterLocation.getY();
+        double tntZ = blockCenterLocation.getZ();
 
-        double angle = entityVelocity.angle(directionToBlock);
+        Vector entityVelocity = cause.getVelocity();
 
-        return angle > Math.PI / 4;
-        return angle < Math.PI / 4;
+        double velocityX = entityVelocity.getX();
+        double velocityY = entityVelocity.getY();
+        double velocityZ = entityVelocity.getZ();
+
+        double significantValue = 0.0D;
+
+        if (entityY < tntY - 0.5D) {
+            significantValue = velocityY;
+        } else if (entityY > tntY + 0.5D) {
+            significantValue = -velocityY;
+        } else if (entityX < tntX - 0.5D) {
+            significantValue = velocityX;
+        } else if (entityX > tntX + 0.5D) {
+            significantValue = -velocityX;
+        } else if (entityZ < tntZ - 0.5D) {
+            significantValue = velocityZ;
+        } else if (entityZ > tntZ + 0.5D) {
+            significantValue = -velocityZ;
+        }
+
+        return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed");
     }
 
     public void detonateInstantTnt(@NotNull Block instantTnt) {
