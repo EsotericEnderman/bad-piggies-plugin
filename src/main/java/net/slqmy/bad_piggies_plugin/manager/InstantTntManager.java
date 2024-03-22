@@ -102,7 +102,7 @@ public class InstantTntManager {
             significantValue = -velocityZ;
         }
 
-        return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed") / 20.0D;
+        return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed") / Bukkit.getServerTickManager().getTickRate();
     }
 
     public void detonateInstantTnt(@NotNull Block instantTnt) {
