@@ -1,5 +1,6 @@
 package net.slqmy.bad_piggies_plugin.util;
 
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class EntityUtil {
 
-    public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity) {
+    public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity, Location locationOverride) {
         BoundingBox box = entity.getBoundingBox();
 
         box.expand(0.01F);
@@ -43,5 +44,9 @@ public class EntityUtil {
         }
 
         return touchedBlocks;
+    }
+
+    public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity) {
+        return getTouchedBlocks(entity, entity.getLocation());
     }
 }
