@@ -10,11 +10,11 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
@@ -65,9 +65,9 @@ public class InstantTntManager {
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
     }
 
-    public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause) {
+    public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause, Location locationOverride) {
         double entityX = cause.getX();
-        double entityY = cause.getY();
+        double minEntityY = cause.getY();
         double entityZ = cause.getZ();
 
         Location blockCenterLocation = BlockUtil.getBlockCenterLocation(instantTnt);
@@ -84,21 +84,37 @@ public class InstantTntManager {
 
         double significantValue = 0.0D;
 
-        if (entityY < tntY - 0.5D) {
+        BoundingBox boundingBox = cause.getBoundingBox();
+
+        double maxEntityY = minEntityY + boundingBox.getMaxY();
+
+        double maxEntityX = entityX + boundingBox.getMaxX();
+        double minEntityX = entityX + boundingBox.getMinX();
+
+        double maxEntityZ = entityZ + boundingBox.getMaxZ();
+        double minEntityZ = entityZ + boundingBox.getMinZ();
+
+        if (maxEntityY < tntY - 0.5D) {
             significantValue = velocityY;
-        } else if (entityY > tntY + 0.5D) {
+        } else if (minEntityY > tntY + 0.5D) {
             significantValue = -velocityY;
-        } else if (entityX < tntX - 0.5D) {
+        } else if (maxEntityX < tntX - 0.5D) {
             significantValue = velocityX;
-        } else if (entityX > tntX + 0.5D) {
+        } else if (minEntityZ > tntX + 0.5D) {
             significantValue = -velocityX;
-        } else if (entityZ < tntZ - 0.5D) {
+        } else if (maxEntityZ < tntZ - 0.5D) {
             significantValue = velocityZ;
-        } else if (entityZ > tntZ + 0.5D) {
+        } else if (minEntityX > tntZ + 0.5D) {
             significantValue = -velocityZ;
         }
 
+        plugin.getLogger().info("significantValue = " + significantValue);
+
         return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed") / Bukkit.getServerTickManager().getTickRate();
+    }
+
+    public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause) {
+        return shouldInstantTntDetonate(instantTnt, cause, cause.getLocation());
     }
 
     public void detonateInstantTnt(@NotNull Block instantTnt) {
