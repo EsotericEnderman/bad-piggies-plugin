@@ -42,10 +42,6 @@ public class InstantTntCollideListener implements Listener {
     public void onInstantTntCollide(@NotNull EntityMoveEvent event) {
         Entity entity = event.getEntity();
 
-        if (entity instanceof Player) {
-            Bukkit.getLogger().info("entity = " + entity);
-        }
-
         Vector velocity = entity.getVelocity();
 
         InstantTntManager instantTntManager = plugin.getInstantTntManager();
@@ -77,7 +73,11 @@ public class InstantTntCollideListener implements Listener {
         List<Block> touchedBlocks = EntityUtil.getTouchedBlocks(entity, event.getTo());
 
         if (entity instanceof Player) {
-            Bukkit.getLogger().info("touchedBlocks = " + touchedBlocks);
+            List<Block> touchedTnt = touchedBlocks.stream().filter((Block touchedBlock) -> touchedBlock.getBlockData().getMaterial() == Material.TNT).toList();
+
+            if (!touchedTnt.isEmpty()) {
+                Bukkit.getLogger().info("touchedBlocks = " + touchedTnt);
+            }
         }
 
         for (Block touchedBlock : touchedBlocks) {
