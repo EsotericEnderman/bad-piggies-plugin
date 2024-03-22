@@ -35,7 +35,7 @@ public class InstantTntCollideListener implements Listener {
                 )
         );
 
-        plugin.getInstantTntManager().calculatePlayerVelocity(event);
+        plugin.getPlayerVelocityManager().calculatePlayerVelocity(event);
     }
 
     @EventHandler
@@ -47,7 +47,7 @@ public class InstantTntCollideListener implements Listener {
         InstantTntManager instantTntManager = plugin.getInstantTntManager();
 
         if (entity instanceof Player player) {
-            Vector playerVelocity = instantTntManager.getPlayerVelocity(player);
+            Vector playerVelocity = plugin.getPlayerVelocityManager().getPlayerVelocity(player);
 
             if (playerVelocity != null) {
                 velocity = playerVelocity;

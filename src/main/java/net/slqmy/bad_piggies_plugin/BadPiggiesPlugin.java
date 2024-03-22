@@ -4,6 +4,7 @@ import net.slqmy.bad_piggies_plugin.listener.InstantTntCollideListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntRemoveListener;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
+import net.slqmy.bad_piggies_plugin.manager.PlayerVelocityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -22,10 +23,16 @@ public final class BadPiggiesPlugin extends JavaPlugin {
 
     private InstantTntManager instantTntManager;
 
+    private PlayerVelocityManager playerVelocityManager;
+
     private NamespacedKey instantTntKey;
 
     public InstantTntManager getInstantTntManager() {
         return instantTntManager;
+    }
+
+    public PlayerVelocityManager getPlayerVelocityManager() {
+        return playerVelocityManager;
     }
 
     public NamespacedKey getInstantTntKey() {
@@ -81,6 +88,7 @@ public final class BadPiggiesPlugin extends JavaPlugin {
             pluginManager.registerEvents(new InstantTntCollideListener(this), this);
 
             instantTntManager = new InstantTntManager(this);
+            playerVelocityManager = new PlayerVelocityManager();
         }
     }
 
