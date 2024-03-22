@@ -78,6 +78,10 @@ public class InstantTntManager {
 
         Vector entityVelocity = cause.getVelocity();
 
+        if (cause instanceof Player player) {
+            entityVelocity = plugin.getPlayerVelocityManager().getPlayerVelocity(player);
+        }
+
         double velocityX = entityVelocity.getX();
         double velocityY = entityVelocity.getY();
         double velocityZ = entityVelocity.getZ();
