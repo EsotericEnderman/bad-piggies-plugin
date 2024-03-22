@@ -66,10 +66,6 @@ public class InstantTntManager {
     }
 
     public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause, Location locationOverride) {
-        double entityX = cause.getX();
-        double minEntityY = cause.getY();
-        double entityZ = cause.getZ();
-
         Location blockCenterLocation = BlockUtil.getBlockCenterLocation(instantTnt);
 
         double tntX = blockCenterLocation.getX();
@@ -86,28 +82,36 @@ public class InstantTntManager {
 
         BoundingBox boundingBox = cause.getBoundingBox();
 
-        double maxEntityY = minEntityY + boundingBox.getMaxY();
+        double minEntityY = boundingBox.getMinY();
+        double maxEntityY = boundingBox.getMaxY();
 
-        double maxEntityX = entityX + boundingBox.getMaxX();
-        double minEntityX = entityX + boundingBox.getMinX();
+        double maxEntityX = boundingBox.getMaxX();
+        double minEntityX = boundingBox.getMinX();
 
-        double maxEntityZ = entityZ + boundingBox.getMaxZ();
-        double minEntityZ = entityZ + boundingBox.getMinZ();
+        double maxEntityZ = boundingBox.getMaxZ();
+        double minEntityZ = boundingBox.getMinZ();
 
         if (maxEntityY < tntY - 0.5D) {
+            plugin.getLogger().info("1");
             significantValue = velocityY;
         } else if (minEntityY > tntY + 0.5D) {
+            plugin.getLogger().info("2");
             significantValue = -velocityY;
         } else if (maxEntityX < tntX - 0.5D) {
+            plugin.getLogger().info("3");
             significantValue = velocityX;
-        } else if (minEntityZ > tntX + 0.5D) {
+        } else if (minEntityX > tntX + 0.5D) {
+            plugin.getLogger().info("4");
             significantValue = -velocityX;
         } else if (maxEntityZ < tntZ - 0.5D) {
+            plugin.getLogger().info("5");
             significantValue = velocityZ;
-        } else if (minEntityX > tntZ + 0.5D) {
+        } else if (minEntityZ > tntZ + 0.5D) {
+            plugin.getLogger().info("6");
             significantValue = -velocityZ;
         }
 
+        plugin.getLogger().info("entityVelocity = " + entityVelocity);
         plugin.getLogger().info("significantValue = " + significantValue);
 
         return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed") / Bukkit.getServerTickManager().getTickRate();
