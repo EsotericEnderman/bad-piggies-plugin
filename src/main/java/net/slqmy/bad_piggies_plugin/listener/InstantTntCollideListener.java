@@ -74,7 +74,7 @@ public class InstantTntCollideListener implements Listener {
             return;
         }
 
-        List<Block> touchedBlocks = EntityUtil.getTouchedBlocks(entity);
+        List<Block> touchedBlocks = EntityUtil.getTouchedBlocks(entity, event.getTo());
 
         if (entity instanceof Player) {
             Bukkit.getLogger().info("touchedBlocks = " + touchedBlocks);
