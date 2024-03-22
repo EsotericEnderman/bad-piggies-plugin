@@ -76,11 +76,7 @@ public class InstantTntManager {
         double tntY = blockCenterLocation.getY();
         double tntZ = blockCenterLocation.getZ();
 
-        Vector entityVelocity = cause.getVelocity();
-
-        if (cause instanceof Player player) {
-            entityVelocity = plugin.getPlayerVelocityManager().getPlayerVelocity(player);
-        }
+        Vector entityVelocity = plugin.getPlayerVelocityManager().getVelocity(cause);
 
         double velocityX = entityVelocity.getX();
         double velocityY = entityVelocity.getY();

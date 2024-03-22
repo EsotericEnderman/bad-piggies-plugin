@@ -1,5 +1,6 @@
 package net.slqmy.bad_piggies_plugin.manager;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
@@ -20,5 +21,17 @@ public class PlayerVelocityManager {
                 event.getPlayer(),
                 event.getTo().toVector().subtract(event.getFrom().toVector())
         );
+    }
+
+    public Vector getVelocity(Entity entity) {
+        if (entity instanceof Player player) {
+            Vector velocity = getPlayerVelocity(player);
+
+            if (velocity == null) {
+                return new Vector();
+            }
+        }
+
+        return entity.getVelocity();
     }
 }
