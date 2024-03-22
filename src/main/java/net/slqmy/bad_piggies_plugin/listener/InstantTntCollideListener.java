@@ -5,6 +5,7 @@ import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
 import net.slqmy.bad_piggies_plugin.util.EntityUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
