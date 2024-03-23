@@ -104,19 +104,19 @@ public class InstantTntManager {
         if (maxEntityY < minTntY) {
             plugin.getLogger().info("1");
             significantValue = velocityY;
-        } else if (minEntityY > maxTntY) {
+        } else if (minEntityY >= maxTntY) {
             plugin.getLogger().info("2");
             significantValue = -velocityY;
-        } else if (maxEntityX < minTntX) {
+        } else if (maxEntityX <= minTntX) {
             plugin.getLogger().info("3");
             significantValue = velocityX;
-        } else if (minEntityX > maxTntX) {
+        } else if (minEntityX >= maxTntX) {
             plugin.getLogger().info("4");
             significantValue = -velocityX;
-        } else if (maxEntityZ < minTntZ) {
+        } else if (maxEntityZ <= minTntZ) {
             plugin.getLogger().info("5");
             significantValue = velocityZ;
-        } else if (minEntityZ > maxTntZ) {
+        } else if (minEntityZ >= maxTntZ) {
             plugin.getLogger().info("6");
             significantValue = -velocityZ;
         }
