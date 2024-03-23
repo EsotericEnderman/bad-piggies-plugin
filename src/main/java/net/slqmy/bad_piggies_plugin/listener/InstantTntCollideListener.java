@@ -35,8 +35,6 @@ public class InstantTntCollideListener implements Listener {
                         event.getTo()
                 )
         );
-
-        plugin.getPlayerVelocityManager().calculatePlayerVelocity(event);
     }
 
     @EventHandler
