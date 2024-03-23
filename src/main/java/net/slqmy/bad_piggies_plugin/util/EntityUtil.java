@@ -16,7 +16,7 @@ public class EntityUtil {
     public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity, @NotNull Location locationOverride) {
         BoundingBox box = entity.getBoundingBox();
 
-        box.expand(0.01F);
+        box.expand(0.01D);
 
         Vector locationDifference = locationOverride.clone().subtract(entity.getLocation()).toVector();
 
