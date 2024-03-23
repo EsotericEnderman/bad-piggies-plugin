@@ -24,8 +24,6 @@ public class PlayerVelocityManager extends BukkitRunnable {
     }
 
     public Vector getPlayerVelocity(Player player) {
-        plugin.getLogger().info("player.velocity = " + playerVelocityMap.get(player));
-
         return playerVelocityMap.get(player);
     }
 
@@ -47,16 +45,11 @@ public class PlayerVelocityManager extends BukkitRunnable {
         Vector oldPosition = playerPositionMap.get(player);
         Vector newPosition = player.getLocation().toVector();
 
-        plugin.getLogger().info("oldPosition = " + oldPosition);
-        plugin.getLogger().info("newPosition = " + newPosition);
-
         if (oldPosition == null) {
             oldPosition = newPosition;
         }
 
         Vector velocity = newPosition.clone().subtract(oldPosition);
-
-        plugin.getLogger().info("velocity = " + velocity);
 
         playerVelocityMap.put(
                 player,
@@ -74,8 +67,6 @@ public class PlayerVelocityManager extends BukkitRunnable {
 
         for (Player player : players) {
             int ticksLived = plugin.getPlayerTickManager().getPlayerTicksExisted(player);
-
-            plugin.getLogger().info("ticksLived = " + ticksLived);
 
             if (ticksLived > 1) {
                 updatePlayerVelocityData(player);
