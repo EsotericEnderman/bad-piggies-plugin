@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.BoundingBox;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -12,18 +13,21 @@ import java.util.List;
 
 public class EntityUtil {
 
-    public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity, Location locationOverride) {
+    public static @NotNull List<Block> getTouchedBlocks(@NotNull Entity entity, @NotNull Location locationOverride) {
         BoundingBox box = entity.getBoundingBox();
 
         box.expand(0.01F);
 
-        double minX = box.getMinX();
-        double minY = box.getMinY();
-        double minZ = box.getMinZ();
+        Vector locationDifference = locationOverride.clone().subtract(entity.getLocation()).toVector();
 
-        double maxX = box.getMaxX();
-        double maxY = box.getMaxY();
-        double maxZ = box.getMaxZ();
+        double minX = box.getMinX() + locationDifference.getX();
+        double maxX = box.getMaxX() + locationDifference.getX();
+
+        double minY = box.getMinY() + locationDifference.getY();
+        double maxY = box.getMaxY() + locationDifference.getY();
+
+        double minZ = box.getMinZ() + locationDifference.getZ();
+        double maxZ = box.getMaxZ() + locationDifference.getZ();
 
         World world = entity.getWorld();
 

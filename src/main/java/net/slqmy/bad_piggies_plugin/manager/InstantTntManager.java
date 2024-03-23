@@ -64,7 +64,7 @@ public class InstantTntManager {
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
     }
 
-    public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause, Location locationOverride) {
+    public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause, @NotNull Location locationOverride) {
         Location blockCenterLocation = BlockUtil.getBlockCenterLocation(instantTnt);
 
         double tntX = blockCenterLocation.getX();
@@ -88,16 +88,18 @@ public class InstantTntManager {
 
         double significantValue = 0.0D;
 
+        Vector locationDifference = locationOverride.clone().subtract(cause.getLocation()).toVector();
+
         BoundingBox boundingBox = cause.getBoundingBox();
 
-        double minEntityY = boundingBox.getMinY();
-        double maxEntityY = boundingBox.getMaxY();
+        double minEntityY = boundingBox.getMinY() + locationDifference.getY();
+        double maxEntityY = boundingBox.getMaxY() + locationDifference.getY();
 
-        double maxEntityX = boundingBox.getMaxX();
-        double minEntityX = boundingBox.getMinX();
+        double maxEntityX = boundingBox.getMaxX() + locationDifference.getX();
+        double minEntityX = boundingBox.getMinX() + locationDifference.getX();
 
-        double maxEntityZ = boundingBox.getMaxZ();
-        double minEntityZ = boundingBox.getMinZ();
+        double maxEntityZ = boundingBox.getMaxZ() + locationDifference.getZ();
+        double minEntityZ = boundingBox.getMinZ() + locationDifference.getZ();
 
         if (maxEntityY < minTntY) {
             plugin.getLogger().info("1");
