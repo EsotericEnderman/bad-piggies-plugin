@@ -36,6 +36,8 @@ public class PlayerVelocityManager extends BukkitRunnable {
             if (velocity == null) {
                 return new Vector();
             }
+
+            return velocity;
         }
 
         return entity.getVelocity();
