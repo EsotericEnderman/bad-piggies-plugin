@@ -2,7 +2,6 @@ package net.slqmy.bad_piggies_plugin.manager;
 
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.util.BlockUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -72,6 +71,15 @@ public class InstantTntManager {
         double tntY = blockCenterLocation.getY();
         double tntZ = blockCenterLocation.getZ();
 
+        double minTntY = tntY - 0.5D;
+        double maxTntY = tntY + 0.5D;
+
+        double minTntX = tntX - 0.5D;
+        double maxTntX = tntX + 0.5D;
+
+        double minTntZ = tntZ - 0.5D;
+        double maxTntZ = tntZ + 0.5D;
+
         Vector entityVelocity = plugin.getPlayerVelocityManager().getVelocity(cause);
 
         double velocityX = entityVelocity.getX();
@@ -91,22 +99,22 @@ public class InstantTntManager {
         double maxEntityZ = boundingBox.getMaxZ();
         double minEntityZ = boundingBox.getMinZ();
 
-        if (maxEntityY < tntY - 0.5D) {
+        if (maxEntityY < minTntY) {
             plugin.getLogger().info("1");
             significantValue = velocityY;
-        } else if (minEntityY > tntY + 0.5D) {
+        } else if (minEntityY > maxTntY) {
             plugin.getLogger().info("2");
             significantValue = -velocityY;
-        } else if (maxEntityX < tntX - 0.5D) {
+        } else if (maxEntityX < minTntX) {
             plugin.getLogger().info("3");
             significantValue = velocityX;
-        } else if (minEntityX > tntX + 0.5D) {
+        } else if (minEntityX > maxTntX) {
             plugin.getLogger().info("4");
             significantValue = -velocityX;
-        } else if (maxEntityZ < tntZ - 0.5D) {
+        } else if (maxEntityZ < minTntZ) {
             plugin.getLogger().info("5");
             significantValue = velocityZ;
-        } else if (minEntityZ > tntZ + 0.5D) {
+        } else if (minEntityZ > maxTntZ) {
             plugin.getLogger().info("6");
             significantValue = -velocityZ;
         }
