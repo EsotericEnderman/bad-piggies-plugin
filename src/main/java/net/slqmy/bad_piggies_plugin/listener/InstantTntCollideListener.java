@@ -49,9 +49,7 @@ public class InstantTntCollideListener implements Listener {
 
         double speedMetersPerTick = velocity.length();
 
-        float tickRate = Bukkit.getServerTickManager().getTickRate();
-
-        double speedMetersPerSecond = speedMetersPerTick * tickRate;
+        double speedMetersPerSecond = speedMetersPerTick * 20.0D;
 
         YamlConfiguration configuration = (YamlConfiguration) plugin.getConfig();
 

@@ -114,7 +114,7 @@ public class InstantTntManager {
         plugin.getLogger().info("entityVelocity = " + entityVelocity);
         plugin.getLogger().info("significantValue = " + significantValue);
 
-        return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed") / Bukkit.getServerTickManager().getTickRate();
+        return significantValue > plugin.getConfig().getDouble("features.instant-tnt.minimum-collision-detonation-speed") / 20.0D;
     }
 
     public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause) {
