@@ -2,7 +2,7 @@ features:
   instant-tnt:
     enabled: true
     # The unit for this variable is meters per second.
-    minimum-collision-detonation-speed: 3.2
+    minimum-collision-detonation-speed: 0.75
     explosion:
       power: 2.0
       breaks-blocks: false
