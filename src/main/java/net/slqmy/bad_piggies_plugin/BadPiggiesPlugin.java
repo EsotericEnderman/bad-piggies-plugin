@@ -4,6 +4,7 @@ import net.slqmy.bad_piggies_plugin.listener.InstantTntCollideListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntRemoveListener;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
+import net.slqmy.bad_piggies_plugin.manager.PlayerTickManager;
 import net.slqmy.bad_piggies_plugin.manager.PlayerVelocityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,18 +22,24 @@ import java.util.Arrays;
 
 public final class BadPiggiesPlugin extends JavaPlugin {
 
-    private InstantTntManager instantTntManager;
+    private PlayerTickManager playerTickManager;
 
     private PlayerVelocityManager playerVelocityManager;
 
+    private InstantTntManager instantTntManager;
+
     private NamespacedKey instantTntKey;
 
-    public InstantTntManager getInstantTntManager() {
-        return instantTntManager;
+    public PlayerTickManager getPlayerTickManager() {
+        return playerTickManager;
     }
 
     public PlayerVelocityManager getPlayerVelocityManager() {
         return playerVelocityManager;
+    }
+
+    public InstantTntManager getInstantTntManager() {
+        return instantTntManager;
     }
 
     public NamespacedKey getInstantTntKey() {
@@ -87,8 +94,14 @@ public final class BadPiggiesPlugin extends JavaPlugin {
             pluginManager.registerEvents(new InstantTntRemoveListener(this), this);
             pluginManager.registerEvents(new InstantTntCollideListener(this), this);
 
+            playerTickManager =  new PlayerTickManager();
+            pluginManager.registerEvents(playerTickManager, this);
+            playerTickManager.runTaskTimer(this, 0L, 1L);
+
+            playerVelocityManager = new PlayerVelocityManager(this);
+            playerVelocityManager.runTaskTimer(this, 0L, 1L);
+
             instantTntManager = new InstantTntManager(this);
-            playerVelocityManager = new PlayerVelocityManager();
         }
     }
 
