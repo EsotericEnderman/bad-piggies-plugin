@@ -7,3 +7,4 @@ features:
       power: 2.0
       breaks-blocks: false
       sets-fire: false
+      spread-radius-blocks: 8.0
