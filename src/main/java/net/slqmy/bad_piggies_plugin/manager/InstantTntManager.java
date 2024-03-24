@@ -101,7 +101,7 @@ public class InstantTntManager {
         double maxEntityZ = boundingBox.getMaxZ() + locationDifference.getZ();
         double minEntityZ = boundingBox.getMinZ() + locationDifference.getZ();
 
-        if (maxEntityY < minTntY) {
+        if (maxEntityY <= minTntY) {
             significantValue = velocityY;
         } else if (minEntityY >= maxTntY) {
             significantValue = -velocityY;
