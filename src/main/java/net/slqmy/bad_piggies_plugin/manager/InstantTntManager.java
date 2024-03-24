@@ -174,7 +174,7 @@ public class InstantTntManager {
                 }
             }
         } else {
-            blocksToIterateThrough = instantTntBlocks.stream().filter((Vector location) -> location.distance(center) <= explosionRadiusBlocks).toList();
+            blocksToIterateThrough = instantTntBlocks.stream().filter((Vector location) -> BlockUtil.getBlockCenterLocation(location).distance(center) <= explosionRadiusBlocks).toList();
         }
 
         World world = startingTnt.getWorld();
