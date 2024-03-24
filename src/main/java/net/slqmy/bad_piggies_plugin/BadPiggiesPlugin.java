@@ -1,6 +1,7 @@
 package net.slqmy.bad_piggies_plugin;
 
 import net.slqmy.bad_piggies_plugin.listener.InstantTntCollideListener;
+import net.slqmy.bad_piggies_plugin.listener.InstantTntDetonateListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
 import net.slqmy.bad_piggies_plugin.listener.InstantTntRemoveListener;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
@@ -57,6 +58,15 @@ public final class BadPiggiesPlugin extends JavaPlugin {
 
         saveResource("data/instant-tnt-blocks.json", false);
 
+        PluginManager pluginManager = Bukkit.getPluginManager();
+
+        playerTickManager =  new PlayerTickManager();
+        pluginManager.registerEvents(playerTickManager, this);
+        playerTickManager.runTaskTimer(this, 0L, 1L);
+
+        playerVelocityManager = new PlayerVelocityManager(this);
+        playerVelocityManager.runTaskTimer(this, 0L, 1L);
+
         boolean isInstantTntEnabled = config.getBoolean("features.instant-tnt.enabled");
 
         if (isInstantTntEnabled) {
@@ -88,18 +98,10 @@ public final class BadPiggiesPlugin extends JavaPlugin {
                 Bukkit.addRecipe(instantTntRecipe);
             }
 
-            PluginManager pluginManager = Bukkit.getPluginManager();
-
             pluginManager.registerEvents(new InstantTntPlaceListener(this), this);
             pluginManager.registerEvents(new InstantTntRemoveListener(this), this);
             pluginManager.registerEvents(new InstantTntCollideListener(this), this);
-
-            playerTickManager =  new PlayerTickManager();
-            pluginManager.registerEvents(playerTickManager, this);
-            playerTickManager.runTaskTimer(this, 0L, 1L);
-
-            playerVelocityManager = new PlayerVelocityManager(this);
-            playerVelocityManager.runTaskTimer(this, 0L, 1L);
+            pluginManager.registerEvents(new InstantTntDetonateListener(this), this);
 
             instantTntManager = new InstantTntManager(this);
         }
