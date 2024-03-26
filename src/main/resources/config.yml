@@ -8,3 +8,4 @@ features:
       breaks-blocks: false
       sets-fire: false
       spread-radius-blocks: 8.0
+      blocks-per-tick-delay: 0.0

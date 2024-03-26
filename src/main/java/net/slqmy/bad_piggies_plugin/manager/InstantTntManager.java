@@ -2,6 +2,7 @@ package net.slqmy.bad_piggies_plugin.manager;
 
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.util.BlockUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -205,14 +206,21 @@ public class InstantTntManager {
     public void chainDetonateInstantTnt(Block startingTnt) {
         List<Vector> blocksToDetonate = chainDetonateInstantTnt(startingTnt, new ArrayList<>());
 
+        Vector explosionOrigin = BlockUtil.getBlockCenterLocation(startingTnt).toVector();
         World world = startingTnt.getWorld();
 
+        double blocksPerTickDelay = plugin.getConfig().getInt("features.instant-tnt.explosion.blocks-per-tick-delay");
+
         for (Vector explosionLocation : blocksToDetonate) {
-            detonateInstantTnt(
+            double distance = explosionOrigin.distance(explosionLocation);
+
+            int tickDelay = (int) Math.floor(distance / blocksPerTickDelay);
+
+            Bukkit.getScheduler().runTaskLater(plugin, () -> detonateInstantTnt(
                     world.getBlockAt(
                             new Location(world, explosionLocation.getX(), explosionLocation.getY(), explosionLocation.getZ())
                     )
-            );
+            ), tickDelay);
         }
     }
 
