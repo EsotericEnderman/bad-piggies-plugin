@@ -1,5 +1,7 @@
 package net.slqmy.bad_piggies_plugin.manager;
 
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.util.BlockUtil;
 import org.bukkit.Bukkit;
@@ -18,6 +20,7 @@ import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +28,13 @@ public class InstantTntManager {
 
     private final BadPiggiesPlugin plugin;
 
-    private final List<Vector> instantTntBlocks = new ArrayList<>();
+    private final File instantTntDataFile;
 
-    public InstantTntManager(BadPiggiesPlugin plugin) {
+    private List<Vector> instantTntBlocks = new ArrayList<>();
+
+    public InstantTntManager(@NotNull BadPiggiesPlugin plugin) {
         this.plugin = plugin;
+        instantTntDataFile = new File(plugin.getDataFolder(), "data/instant-tnt-blocks.json");
 
         loadInstantTntData();
     }
@@ -225,10 +231,41 @@ public class InstantTntManager {
     }
 
     public void loadInstantTntData() {
+        try {
+            Reader reader = new FileReader(instantTntDataFile);
 
+            Gson gson = new Gson();
+
+            List<LinkedTreeMap<String, Double>> linkedTreeMaps = (List<LinkedTreeMap<String, Double>>) gson.fromJson(reader, List.class);
+
+            reader.close();
+
+            for (LinkedTreeMap<String, Double> linkedTreeMap : linkedTreeMaps) {
+                instantTntBlocks.add(
+                        new Vector(
+                                linkedTreeMap.get("x"),
+                                linkedTreeMap.get("y"),
+                                linkedTreeMap.get("z")
+                        )
+                );
+            }
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 
     public void saveInstantTntData() {
+        try {
+            Writer writer = new FileWriter(instantTntDataFile);
 
+            Gson gson = new Gson();
+
+            gson.toJson(instantTntBlocks, writer);
+
+            writer.flush();
+            writer.close();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }
