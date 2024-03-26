@@ -1,9 +1,6 @@
 package net.slqmy.bad_piggies_plugin;
 
-import net.slqmy.bad_piggies_plugin.listener.InstantTntCollideListener;
-import net.slqmy.bad_piggies_plugin.listener.InstantTntDetonateListener;
-import net.slqmy.bad_piggies_plugin.listener.InstantTntPlaceListener;
-import net.slqmy.bad_piggies_plugin.listener.InstantTntRemoveListener;
+import net.slqmy.bad_piggies_plugin.listener.*;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
 import net.slqmy.bad_piggies_plugin.manager.PlayerTickManager;
 import net.slqmy.bad_piggies_plugin.manager.PlayerVelocityManager;
@@ -13,9 +10,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -70,17 +64,10 @@ public final class BadPiggiesPlugin extends JavaPlugin {
         boolean isInstantTntEnabled = config.getBoolean("features.instant-tnt.enabled");
 
         if (isInstantTntEnabled) {
-            ItemStack instantTnt = new ItemStack(Material.TNT);
-
-            ItemMeta meta = instantTnt.getItemMeta();
-
-            PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
-
+            instantTntManager = new InstantTntManager(this);
             instantTntKey = new NamespacedKey(this, "instant-tnt");
 
-            dataContainer.set(instantTntKey, PersistentDataType.BOOLEAN, true);
-
-            instantTnt.setItemMeta(meta);
+            ItemStack instantTnt = instantTntManager.getInstantTntItem();
 
             Material[] plankTypes = Arrays.stream(Material.values()).filter((material) -> material.name().endsWith("PLANKS")).toArray(Material[]::new);
 
@@ -102,8 +89,6 @@ public final class BadPiggiesPlugin extends JavaPlugin {
             pluginManager.registerEvents(new InstantTntRemoveListener(this), this);
             pluginManager.registerEvents(new InstantTntCollideListener(this), this);
             pluginManager.registerEvents(new InstantTntDetonateListener(this), this);
-
-            instantTntManager = new InstantTntManager(this);
         }
     }
 

@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.util.BlockUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -69,6 +66,20 @@ public class InstantTntManager {
         PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
 
         return Boolean.TRUE.equals(dataContainer.get(plugin.getInstantTntKey(), PersistentDataType.BOOLEAN));
+    }
+
+    public ItemStack getInstantTntItem() {
+        ItemStack instantTnt = new ItemStack(Material.TNT);
+
+        ItemMeta meta = instantTnt.getItemMeta();
+
+        PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
+        NamespacedKey instantTntKey = plugin.getInstantTntKey();
+        dataContainer.set(instantTntKey, PersistentDataType.BOOLEAN, true);
+
+        instantTnt.setItemMeta(meta);
+
+        return instantTnt;
     }
 
     public boolean shouldInstantTntDetonate(Block instantTnt, @NotNull Entity cause, @NotNull Location locationOverride) {
