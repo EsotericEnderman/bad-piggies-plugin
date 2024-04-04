@@ -3,6 +3,7 @@ package net.slqmy.bad_piggies_plugin.listener;
 import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
 import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.TNTPrimeEvent;
@@ -25,7 +26,8 @@ public class InstantTntDetonateListener implements Listener {
         if (manager.isInstantTnt(tnt)) {
             event.setCancelled(true);
 
-            manager.chainDetonateInstantTnt(tnt);
+            Entity entity = event.getPrimingEntity();
+            manager.chainDetonateInstantTnt(tnt, entity);
         }
     }
 }
