@@ -55,7 +55,7 @@ tasks {
         }
     }
 
-    assemble {
+    build {
         dependsOn(reobfJar)
     }
 
