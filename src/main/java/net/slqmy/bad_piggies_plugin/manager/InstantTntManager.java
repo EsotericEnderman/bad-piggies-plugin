@@ -973,7 +973,7 @@ public class InstantTntManager {
         for (Vector explosionLocation : blocksToDetonate) {
             double distance = explosionOrigin.distance(explosionLocation);
 
-            int tickDelay = (int) Math.floor(distance / blocksPerTickDelay);
+            int tickDelay = blocksPerTickDelay == 0 ? 0 : (int) Math.floor(distance / blocksPerTickDelay);
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> detonateInstantTnt(
                     world.getBlockAt(
