@@ -88,7 +88,6 @@ public final class BadPiggiesPlugin extends JavaPlugin {
             pluginManager.registerEvents(new InstantTntPlaceListener(this), this);
             pluginManager.registerEvents(new InstantTntBreakListener(this), this);
             pluginManager.registerEvents(new InstantTntCollideListener(this), this);
-            pluginManager.registerEvents(new InstantTntDetonateListener(this), this);
         }
     }
 
