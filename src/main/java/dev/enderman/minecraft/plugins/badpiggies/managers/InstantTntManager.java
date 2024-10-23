@@ -148,7 +148,7 @@ public class InstantTntManager {
         boolean shouldSetFire = plugin.getConfig().getBoolean("features.instant-tnt.explosion.sets-fire");
         boolean shouldBreakBlocks = plugin.getConfig().getBoolean("features.instant-tnt.explosion.breaks-blocks");
 
-        instantTnt.getWorld().createExplosion(BlockUtil.getBlockCenterLocation(instantTnt), power, shouldSetFire, shouldBreakBlocks, cause);
+        instantTnt.getWorld().createExplosion(cause, BlockUtil.getBlockCenterLocation(instantTnt), power, shouldSetFire, shouldBreakBlocks, false);
 
         removeInstantTnt(instantTnt);
     }
