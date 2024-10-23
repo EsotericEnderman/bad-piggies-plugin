@@ -1,4 +1,4 @@
-package net.slqmy.bad_piggies_plugin.manager;
+package dev.enderman.minecraft.plugins.badpiggies.managers;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

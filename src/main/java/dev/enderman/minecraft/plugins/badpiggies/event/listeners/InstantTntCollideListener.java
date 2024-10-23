@@ -1,9 +1,9 @@
-package net.slqmy.bad_piggies_plugin.listener;
+package dev.enderman.minecraft.plugins.badpiggies.event.listeners;
 
 import io.papermc.paper.event.entity.EntityMoveEvent;
-import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
-import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
-import net.slqmy.bad_piggies_plugin.util.EntityUtil;
+import dev.enderman.minecraft.plugins.badpiggies.BadPiggiesPlugin;
+import dev.enderman.minecraft.plugins.badpiggies.managers.InstantTntManager;
+import dev.enderman.minecraft.plugins.badpiggies.util.EntityUtil;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;

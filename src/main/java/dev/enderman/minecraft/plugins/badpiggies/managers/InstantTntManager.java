@@ -1,10 +1,10 @@
-package net.slqmy.bad_piggies_plugin.manager;
+package dev.enderman.minecraft.plugins.badpiggies.managers;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import net.minecraft.world.level.*;
-import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
-import net.slqmy.bad_piggies_plugin.util.BlockUtil;
+import dev.enderman.minecraft.plugins.badpiggies.BadPiggiesPlugin;
+import dev.enderman.minecraft.plugins.badpiggies.util.BlockUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;

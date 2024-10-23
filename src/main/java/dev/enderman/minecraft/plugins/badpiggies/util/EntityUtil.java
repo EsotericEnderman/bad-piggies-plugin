@@ -1,4 +1,4 @@
-package net.slqmy.bad_piggies_plugin.util;
+package dev.enderman.minecraft.plugins.badpiggies.util;
 
 import org.bukkit.Location;
 import org.bukkit.World;

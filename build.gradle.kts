@@ -7,7 +7,7 @@ plugins {
   id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1"
 }
 
-group = "net.slqmy"
+group = "dev.enderman"
 version = "1.0-SNAPSHOT"
 description = "A plugin that implements some of the features from Rovio's \"Bad Piggies\" mobile game."
 
@@ -33,8 +33,10 @@ tasks {
 }
 
 bukkitPluginYaml {
-  main = "net.slqmy.bad_piggies_plugin.BadPiggiesPlugin"
-  load = BukkitPluginYaml.PluginLoadOrder.STARTUP
-  authors.add("Slqmy")
-  apiVersion = paperApiVersion
+    name = "BadPiggies"
+    version = project.version.toString()
+    main = "dev.enderman.minecraft.plugins.badpiggies.BadPiggiesPlugin"
+    load = BukkitPluginYaml.PluginLoadOrder.STARTUP
+    authors.add("Esoteric Enderman")
+    apiVersion = paperApiVersion
 }

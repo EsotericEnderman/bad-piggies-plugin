@@ -1,7 +1,7 @@
-package net.slqmy.bad_piggies_plugin.listener;
+package dev.enderman.minecraft.plugins.badpiggies.event.listeners;
 
-import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
-import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
+import dev.enderman.minecraft.plugins.badpiggies.BadPiggiesPlugin;
+import dev.enderman.minecraft.plugins.badpiggies.managers.InstantTntManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;

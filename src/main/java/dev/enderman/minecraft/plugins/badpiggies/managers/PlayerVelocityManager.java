@@ -1,6 +1,6 @@
-package net.slqmy.bad_piggies_plugin.manager;
+package dev.enderman.minecraft.plugins.badpiggies.managers;
 
-import net.slqmy.bad_piggies_plugin.BadPiggiesPlugin;
+import dev.enderman.minecraft.plugins.badpiggies.BadPiggiesPlugin;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

@@ -1,9 +1,12 @@
-package net.slqmy.bad_piggies_plugin;
+package dev.enderman.minecraft.plugins.badpiggies;
 
-import net.slqmy.bad_piggies_plugin.listener.*;
-import net.slqmy.bad_piggies_plugin.manager.InstantTntManager;
-import net.slqmy.bad_piggies_plugin.manager.PlayerTickManager;
-import net.slqmy.bad_piggies_plugin.manager.PlayerVelocityManager;
+import dev.enderman.minecraft.plugins.badpiggies.event.listeners.InstantTntBreakListener;
+import dev.enderman.minecraft.plugins.badpiggies.event.listeners.InstantTntCollideListener;
+import dev.enderman.minecraft.plugins.badpiggies.event.listeners.InstantTntDetonateListener;
+import dev.enderman.minecraft.plugins.badpiggies.event.listeners.InstantTntPlaceListener;
+import dev.enderman.minecraft.plugins.badpiggies.managers.InstantTntManager;
+import dev.enderman.minecraft.plugins.badpiggies.managers.PlayerTickManager;
+import dev.enderman.minecraft.plugins.badpiggies.managers.PlayerVelocityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
