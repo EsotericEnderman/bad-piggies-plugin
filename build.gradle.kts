@@ -12,7 +12,7 @@ version = "1.0-SNAPSHOT"
 description = "A plugin that implements some of the features from Rovio's \"Bad Piggies\" mobile game."
 
 val javaVersion = 21;
-val paperApiVersion = "1.21"
+val paperApiVersion = "1.21.1"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersion))
