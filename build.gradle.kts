@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "dev.enderman"
-version = "1.0-SNAPSHOT"
+version = "0.1.0"
 description = "A plugin that implements some of the features from Rovio's \"Bad Piggies\" mobile game."
 
 val javaVersion = 21;
