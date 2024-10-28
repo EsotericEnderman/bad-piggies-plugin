@@ -19,7 +19,7 @@ java {
 }
 
 dependencies {
-    paperweight.paperDevBundle(paperApiVersion + "-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("$paperApiVersion-R0.1-SNAPSHOT")
 }
 
 tasks {
